@@ -1,0 +1,14 @@
+thead{
+    background-color: deepskyblue;
+}
+
+h5{
+    margin-top: 12px;
+    font-weight: 300;
+    font-feature-settings: "abvm";
+    color: white;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+

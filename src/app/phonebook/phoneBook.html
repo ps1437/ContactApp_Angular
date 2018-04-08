@@ -1,0 +1,145 @@
+
+<div class="container">
+
+    <div class="jumbotron ">
+
+        <h5>Contact App</h5>
+
+
+        <div class="container-fluid well card fullwidth card" style="background-color:#A1D4E8">
+           <span class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="addMsg">
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+           </button>
+            {{addMsg}}
+        </span>
+
+            <form #addPhoneBooks="ngForm" *ngIf="addButton" class="form-vertical">
+
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <p>Aru you sure you want to Save ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addContact(addPhoneBooks.value,addPhoneBooks)">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row form-group">
+                    <label for="First" class="col-sm-3 col-form-label text-right">First Name: </label>
+                    <div class="col-sm-auto">
+                        <input type="text" class="form-control" name="firstName" placeholder="First Name" required [(ngModel)]="addPhoneBooks.firstName">
+                    </div>
+                    <label for="Last" class="col-sm-3 col-form-label text-right">Last Name: </label>
+                    <div class="col-sm-auto">
+                        <input type="text" class="form-control" name="lastName" placeholder="Last Name" required [(ngModel)]="addPhoneBooks.lastName">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="dob" class="col-sm-3 col-form-label text-right">DOB: </label>
+                    <div class="col-sm-auto">
+                        <input type="date" class="form-control" name="dob" placeholder="Date of birth" [(ngModel)]="addPhoneBooks.dob">
+                    </div>
+                    <label for="email" class="col-sm-3 col-form-label text-right">Email Id: </label>
+                    <div class="col-sm-auto">
+                        <input type="text" class="form-control" name="email" placeholder="Email Id" [(ngModel)]="addPhoneBooks.email">
+                    </div>
+                </div>
+
+
+                <div class="row form-group">
+                    <label for="phoneNo" class="col-sm-3 col-form-label text-right">Phone Numbera: </label>
+                    <div class="col-sm-auto">
+                        <input type="number" class="form-control" name="phoneNo" placeholder="Phone Number" [(ngModel)]="addPhoneBooks.phoneNo">
+                        <br />
+                        <button class="btn btn-info" type="submit" data-toggle="modal" data-target="#myModal">Add Contact</button>
+                    </div>
+
+                </div>
+
+                <br/></form>
+
+            <form *ngIf="!addButton" class="form-horizontal">
+
+                <!-- Add Form  end-->
+                <div class="row form-group">
+                    <label for="First" class="col-sm-3 col-form-label text-right">First Name: </label>
+                    <div class="col-sm-auto">
+                        <input type="text" class="form-control" name="firstName" placeholder="First Name" required [(ngModel)]="updatePhoneBooks.firstName">
+                    </div>
+                    <label for="Last" class="col-sm-3 col-form-label text-right">Last Name: </label>
+                    <div class="col-sm-auto">
+                        <input type="text" class="form-control" name="lastName" placeholder="Last Name" required [(ngModel)]="updatePhoneBooks.lastName">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="dob" class="col-sm-3 col-form-label text-right">DOB: </label>
+                    <div class="col-sm-auto">
+                        <input type="date" class="form-control" name="dob" placeholder="Date of birth" [(ngModel)]="updatePhoneBooks.dob">
+                    </div>
+                    <label for="email" class="col-sm-3 col-form-label text-right">Email Id: </label>
+                    <div class="col-sm-auto">
+                        <input type="text" class="form-control" name="email" placeholder="Email Id" [(ngModel)]="updatePhoneBooks.email">
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="phoneNo" class="col-sm-3 col-form-label text-right">Phone Numbera: </label>
+                    <div class="col-sm-auto">
+                        <input type="number" class="form-control" name="phoneNo" placeholder="Phone Number" [(ngModel)]="updatePhoneBooks.phoneNo">
+                        <br />
+                        <button class="btn btn-info" type="button" (click)="updateContactForm()">update</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <!-- Update Form  End-->
+        </div>
+
+            <!-- Table List-->
+
+        <div class="table-responsive table-striped table-hover table-fixed">
+            <table border="2" class="table">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Dob</th>
+                        <th>Email Id</th>
+                        <th>Phone Number</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let phone of phoneBooks ;let i=index" (click)="editContact(i)" on-drag-down="deleteContact(i)">
+                        <td> {{phone.firstName | uppercase}}</td>
+                        <td> {{phone.lastName| uppercase}}</td>
+                        <td> {{phone.dob}}</td>
+                        <td> {{phone.email}}</td>
+                        <td> {{phone.phoneNo}}</td>
+                        <td> &nbsp; <button class="btn btn-info" type="button" (click)="deleteContact(i)" title="delete"><i class ="glyphicon glyphicon-trash"></i></button></td>
+                        <td> &nbsp;<button class="btn btn-info" type="button" (click)="editContact(i)" title="Edit"><i class ="glyphicon glyphicon-edit"></i></button></td>
+
+                    </tr>
+
+                    <tr *ngIf="!phoneBooks || phoneBooks.length == 0">
+                        <td colspan="5"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
